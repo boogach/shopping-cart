@@ -46,9 +46,8 @@ namespace ShoppingCart.Classes
                             Console.WriteLine(string.Format("Can't add that many items to cart, only {0} available", (inventoryQuantity - existingItem.Quantity)));
                     }
                     else
-                        Console.WriteLine(string.Format("Can't add that many items to cart, only {0} available", inventoryQuantity));
+                        Console.WriteLine(string.Format("Can't add that many items to cart, only {0} available", (inventoryQuantity - existingItem.Quantity)));
                 }
-                //if cart is empty
                 else
                 {
                     if (q <= inventoryQuantity)
@@ -63,7 +62,7 @@ namespace ShoppingCart.Classes
                         Console.WriteLine(string.Format("Can't add that many items to cart, only {0} available", inventoryQuantity));
                 }
             }
-
+            //if cart is empty
             else
             {
                 //check if user quantity input isn't greater then available items in inventory
@@ -104,7 +103,7 @@ namespace ShoppingCart.Classes
 
                 //if existing item quantity is equal to 0 remove it from the list
                 if (existingItem.Quantity == 0)
-                    cart.Remove(cart.Where(x => existingItem.Sku == s).FirstOrDefault());
+                    cart.RemoveAll(f => f.Sku == s);
             }
 
             base.Remove(s, q);

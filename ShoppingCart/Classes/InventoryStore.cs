@@ -24,6 +24,7 @@ namespace ShoppingCart.Classes
                 Price = p,
                 Name = n
             });
+
             base.Add(s, n, q, p);
         }
 

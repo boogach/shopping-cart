@@ -12,7 +12,6 @@ namespace ShoppingCart
     {
         static void Main(string[] args)
         {
-            bool exitShop = false;
             //number of items which can be added in inventory, can be any number
             var numberOfItems = 100;
             var userInput = string.Empty;
@@ -33,24 +32,24 @@ namespace ShoppingCart
                 {
                     //display message just once, on opening app
                     if (i == 0)
-                        Console.WriteLine("Add items to inventory in expected input format: \nADD - sku(number) name(string) quantity(number) price(number i.e 3.5)");
+                        Console.WriteLine("Add items to inventory in expected input format: \nADD sku(number) name(string) quantity(number) price(number i.e 3.5)");
 
                     //read user input
-                    userInput = Console.ReadLine();
+                    userInput = Console.ReadLine().ToUpper();
 
                     //check for user command ADD
                     if (userInput.Contains("ADD"))
                     {
                         //check number of elements in user input, splitted by space
-                        if (userInput.Split(' ').Length == 6)
+                        if (userInput.Split(' ').Length == 5)
                         {
                             int sku, quantity;
                             float price;
                             //try parse array elements
-                            bool convertSku = int.TryParse(userInput.Split(' ')[2], out sku);
-                            string name = userInput.Split(' ')[3];
-                            bool convertQuantity = int.TryParse(userInput.Split(' ')[4], out quantity);
-                            bool convertPrice = float.TryParse(userInput.Split(' ')[5].Replace('.', ','), out price);
+                            bool convertSku = int.TryParse(userInput.Split(' ')[1], out sku);
+                            string name = userInput.Split(' ')[2].ToLower();
+                            bool convertQuantity = int.TryParse(userInput.Split(' ')[3], out quantity);
+                            bool convertPrice = float.TryParse(userInput.Split(' ')[4].Replace('.', ','), out price);
 
                             //check if all elements are succesfully parsed, if yes call add method
                             if (convertSku && convertQuantity && convertPrice)
@@ -62,7 +61,7 @@ namespace ShoppingCart
                             Console.WriteLine("Some input parameters missing!");
                     }
                     //user END command
-                    else if (userInput.Contains("END"))
+                    else
                     {
                         Console.WriteLine("Adding items to inventory store finished.");
                         //set stage one to finished
@@ -75,17 +74,17 @@ namespace ShoppingCart
                 {
                     //display message just once, on proceeding to stage two
                     if (inventory.items.Count == i - 1)
-                        Console.WriteLine("Additem to the current shopping cart in expected input format: \nADD - sku(number) quantity(number)");
+                        Console.WriteLine("Additem to the current shopping cart in expected input format: \nADD sku(number) quantity(number)");
 
-                    userInput = Console.ReadLine();
+                    userInput = Console.ReadLine().ToUpper();
 
                     if (userInput.Contains("ADD"))
                     {
-                        if (userInput.Split(' ').Length == 4)
+                        if (userInput.Split(' ').Length == 3)
                         {
                             int sku, quantity;
-                            bool convertSku = int.TryParse(userInput.Split(' ')[2], out sku);
-                            bool convertQuantity = int.TryParse(userInput.Split(' ')[3], out quantity);
+                            bool convertSku = int.TryParse(userInput.Split(' ')[1], out sku);
+                            bool convertQuantity = int.TryParse(userInput.Split(' ')[2], out quantity);
 
                             if (convertSku && convertQuantity)
                                 currentCart = shoppingCart.Add(sku, quantity);
@@ -98,30 +97,27 @@ namespace ShoppingCart
 
                     else if (userInput.Contains("REMOVE"))
                     {
-                        if (userInput.Split(' ').Length == 4)
+                        if (userInput.Split(' ').Length == 3)
                         {
-                            var sku = int.Parse(userInput.Split(' ')[2]);
-                            var quantity = int.Parse(userInput.Split(' ')[3]);
+                            var sku = int.Parse(userInput.Split(' ')[1]);
+                            var quantity = int.Parse(userInput.Split(' ')[2]);
 
                             currentCart = shoppingCart.Remove(sku, quantity);
                         }
+                    }
 
-                        //call cart checkout method
-                        else if (userInput.Contains("CHECKOUT"))
-                        {
-                            shoppingCart.Checkout(currentCart);
-                        }
+                    //call cart checkout method
+                    else if (userInput.Contains("CHECKOUT"))
+                    {
+                        shoppingCart.Checkout(currentCart);
+                    }
 
-                        //exist console app
-                        else if (userInput.Contains("END"))
-                        {
-                            exitShop = true;
-                            Environment.Exit(0);
-                        }
+                    //exist console app
+                    else if (userInput.Contains("END"))
+                    {
+                        Environment.Exit(0);
                     }
                 }
-
-                Console.ReadKey(exitShop);
             }
         }
     }
