@@ -61,9 +61,9 @@ namespace ShoppingCart
                             Console.WriteLine("Some input parameters missing!");
                     }
                     //user END command
-                    else
+                    else if(userInput.Contains("END"))
                     {
-                        Console.WriteLine("Adding items to inventory store finished.");
+                        inventory.End();
                         //set stage one to finished
                         stageOneFinished = true;
                         userInput = string.Empty;
@@ -115,7 +115,7 @@ namespace ShoppingCart
                     //exist console app
                     else if (userInput.Contains("END"))
                     {
-                        Environment.Exit(0);
+                        shoppingCart.End();
                     }
                 }
             }

@@ -88,6 +88,7 @@ namespace ShoppingCart.Classes
 
         public override void End()
         {
+            Environment.Exit(0);
             base.End();
         }
 

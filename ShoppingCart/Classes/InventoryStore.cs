@@ -31,6 +31,7 @@ namespace ShoppingCart.Classes
         //ovrride base class end method
         public override void End()
         {
+            Console.WriteLine("Adding items to inventory store finished.");
             base.End();
         }
     }
