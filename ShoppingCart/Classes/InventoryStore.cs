@@ -14,6 +14,7 @@ namespace ShoppingCart.Classes
 
         }
 
+        //ovrride base class add method
         public override void Add(int s, string n, int q, float p)
         {
             items.Add(new InventoryModel
@@ -26,6 +27,7 @@ namespace ShoppingCart.Classes
             base.Add(s, n, q, p);
         }
 
+        //ovrride base class end method
         public override void End()
         {
             base.End();
